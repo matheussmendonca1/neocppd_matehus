@@ -14,7 +14,7 @@ class Campi extends BaseController
 	    $crud->setTable('campi');
 		$crud->setSubject("Campi");		
 	    $output = $crud->render();
-		$output->header_page = "Cadastros de Campis";	
+		$output->header_page = "Cadastros de Campi";	
 		return  view('crud/index', (array)$output);
 	}
 }

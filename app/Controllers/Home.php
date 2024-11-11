@@ -4,12 +4,11 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-       public function site(): string
-    {
+    public function site(): string {
         return view("site/home");
     }
 
-    public function documentos() : string{
+    public function documentos() : string {
         return view('site/documentos');
     }
 
@@ -35,6 +34,6 @@ class Home extends BaseController
 
     public function login() {
         return redirect()->to('login/site'); 
-     }
+    }
     
 }

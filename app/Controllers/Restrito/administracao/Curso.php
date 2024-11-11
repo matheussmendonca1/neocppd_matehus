@@ -1,8 +1,11 @@
 <?php
 
+use App\Controllers\BaseController;
+use App\Libraries\GroceryCrud;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Curso extends CI_Controller {
+class Curso extends BaseController {
 
     public function __construct() {
         parent::__construct();
@@ -13,17 +16,25 @@ class Curso extends CI_Controller {
     }
 
     public function index() {
-        $crud = new Grocery_CRUD();
-        $crud->set_table("curso");
-        $crud->set_subject("Cursos");
+        $crud = new GroceryCrud();
+        $crud->setTable("curso");
+        $crud->setSubject("Cursos");
         $crud->columns("nome", "tipo");
-        $crud->unset_clone();
+        $crud->unsetClone();
         $form = $crud->render();
         //envio de dados para template
-        $this->template->set("breadcrumb1", "Cadastros");
-        $this->template->set("breadcrumb2", "Curso");
-        $this->template->set("titulo", "Cadastro de Curso");
-        $this->template->load('template/restrito', "crud/index", $form);
+        $data = [
+            'breadcrumb1' => 'Cadastros',
+            'breadcrumb2' => 'Curso',
+            'titulo' => 'Cadastro de Curso',
+            'form' => $form
+        ];
+
+        // Carregando a view do template restrito
+        // echo view('template/restrito', $data);
+
+        // Carregando a view do CRUD
+        // echo view('crud/index', $data);
     }
 
 }
