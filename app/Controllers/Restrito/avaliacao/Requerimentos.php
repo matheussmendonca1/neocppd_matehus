@@ -1,40 +1,39 @@
-<?php
+<?php namespace App\Controllers\Restrito\avaliacao;
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+use App\Controllers\BaseController;
+use App\Libraries\GroceryCrud;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
-class Requerimentos extends CI_Controller {
 
-    public function __construct() {
-        parent::__construct();        
-        $this->template->set("titulo", "Requerimento de Progressão");
-        $this->template->set("breadcrumb1", "Cadastros");
-        $this->template->set("breadcrumb2", "Avaliação");
-        $this->usuario = (object) $this->session->userdata('user');
-        $this->load->model("carreira_model", "carreira");      
-    }
+class Requerimentos extends BaseController {
 
     public function index() {    
-        $crud = new Grocery_CRUD();
-  
-        $crud->set_table("requerimento");
-        $crud->set_subject("Requerimento");  
-        $crud->columns("servidor_idservidor","carreira_idcarreira","data", "status");
-        $crud->display_as("carreira_idcarreira", "Classe/Nível");
-        $crud->display_as("servidor_idservidor", "Servidor");
-        $crud->unset_edit();
-        $crud->unset_delete();
-        $crud->unset_clone();
-        $crud->unset_add();
 
+        $crud = new GroceryCrud();
+        $crud->setTable("requerimento");
+        $crud->setSubject("Requerimento");  
+        $crud->columns(["servidor_idservidor","carreira_idcarreira","data", "status"]);
+        $crud->displayAs("carreira_idcarreira", "Classe/Nível");
+        $crud->displayAs("servidor_idservidor", "Servidor");
+        
+        $crud->unsetEdit();
+        $crud->unsetDelete();
+        $crud->unsetClone();
+        $crud->unsetAdd();
+
+        /*
         if( in_array($crud->getState(),["list", "success","ajax_list"]) ){
             $crud->set_relation("servidor_idservidor", "servidor", "nome");
             $crud->set_relation("carreira_idcarreira", "carreira", "{classe}/{nivel}");
         }
 
         $crud->callback_column("status", array($this, "_column_status"));
-
+*/
         $form = $crud->render();
-        $this->template->load("template/restrito", 'crud/index', $form);
+        $form->header_page = "Requerimento de Progressão";	
+        return  view('crud/index', (array)$form);
         
     }
 

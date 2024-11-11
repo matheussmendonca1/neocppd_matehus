@@ -16,7 +16,7 @@
   <div class="col-md-5 col-sm-12">      
       <fieldset class="mt-5 mb-4 shadow-lg p-3 mb-5 rounded">
         <legend><strong>Controle de acesso</strong></legend>
-        <form method="post" action="<?= site_url("restrito/login/verificar") ?>" class="form">
+        <form method="post" action="<?= site_url("login/verificar") ?>" class="form">
           <div class="mb-3">
             <label for="user-email" class="form-label">Email</label>
             <input type="email" name="email" class="form-control" id="user-email" placeholder="name@example.com">
